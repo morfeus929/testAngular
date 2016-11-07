@@ -98,6 +98,7 @@ module.exports = function() {
 				_album.company = req.body.company;
 				_album.price = req.body.price;
 				_album.year = req.body.year;
+				_album.logoUrl = req.body.logoUrl || '';
 
 				// adding album to collection
 				albums[id] = _album;
