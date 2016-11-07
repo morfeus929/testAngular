@@ -11,7 +11,18 @@
 
 You are required to create a music library web application, which is a Single Page Application. 
 
-## Services
+Your task is creating a simple music library that create, retrieve, edit and delete music albums. There are some albums already registered in the database of your services. You are not required to make a fancy page but your music library project must be shown in a reasonable way in terms of User Experience.
+
+## Requirements
+
+- The page must be responsive
+- You cannot create or edit the existing REST Services
+- You must create tests with Jasmine + Karma
+- Your code must be pushed to a repository in your Github account and the url must be provided to us so we can clone and test your project
+- A basic `Gruntfile.js` is already provided and we are going to test your project by running `grunt start`. You can (and have to) edit this file but be careful to not break it and avoid us to test your project with that command.
+- Configure your `Gruntfile.js` so we can run the tests of your project by running `grunt test`
+
+## REST Services
 
 There are a few services that you're supposed to use in order to create your application.
 

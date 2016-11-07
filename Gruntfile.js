@@ -11,13 +11,29 @@ module.exports = function(grunt) {
 				src: 'src/*.js',
 				dest: 'build/*.min.js'
 			}
+		},
+		karma: {
+			unit: {
+				options: {
+					files: [
+						'src/tests/*.js',
+					],
+					frameworks: ['jasmine'],
+					plugins: ['karma-jasmine', 'karma-phantomjs-launcher'],
+					browsers: ['PhantomJS'],
+					port: 9999,
+					singleRun: true,
+					logLevel: 'ERROR',
+				},
+			}
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-karma');
 
-	function start_task() {
+	function start_server() {
 
 		// Force task into async mode and grab a handle to the "done" function.
 		var done = this.async();
@@ -30,13 +46,13 @@ module.exports = function(grunt) {
 
 		} catch (e) {
 			console.error(e);
-
-		} finally {
-			// done();
+			done();
 		}
 	}
 
-	grunt.registerTask('start', start_task);
+	grunt.registerTask('start_server', start_server);
+	grunt.registerTask('test', ['karma']);
+	grunt.registerTask('start', ['test', 'start_server']);
 
 	// Default task(s).
 	grunt.registerTask('default', ['uglify', 'start']);
