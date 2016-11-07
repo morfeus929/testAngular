@@ -25,7 +25,7 @@ Fork the project [Angular JS Exam project](https://github.com/thiagoh/angular-js
 - You will notice that none of the albums has a logo set. Your CRUD must allow the user to set a logo URL for each album, and this logo should be visible along with the album information (on the screen). Our services are ready to receive a parameter `logoUrl` so all you have to do is using the current REST services to update the albums.
 - The page must be responsive
 - All the static data such as JS, CSS and Image Files must be inside `/html` directory. Each one inside your own directory.
-- **You're not allowed to use jQuery (!important)** 
+- **You're not allowed to use jQuery (!important)** (Because of the Bootstrap dependency on jQuery you can have jQuery on your codebase but despite of Bootstrap related scripts you must not use jQuery)
 - You cannot create or edit the existing REST Services
 - You must create tests with Jasmine + Karma
 - Your code must be pushed to a repository in your Github account and the url must be provided to us so we can clone and test your project
