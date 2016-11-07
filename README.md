@@ -32,6 +32,13 @@ Fork the project [Angular JS Exam project](https://github.com/thiagoh/angular-js
 - A basic `Gruntfile.js` is already provided and we are going to test your project by running `grunt start`. You can (and have to) edit this file but be careful to not break it and avoid us to test your project with that command.
 - Configure your `Gruntfile.js` so we can run the tests of your project by running `grunt test`
 
+## How to run
+
+```
+npm install
+grunt start
+```
+
 ## REST Services
 
 There are a few services that you're supposed to use in order to create your application.
