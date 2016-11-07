@@ -38,6 +38,12 @@ Fork the project [Angular JS Exam project](https://github.com/thiagoh/angular-js
 npm install
 grunt start
 ```
+## Instructions to submit your work
+
+- Commit and push all you work to your repository
+- Download the ZIP of your project from your Git repository (download green button of github project page)
+- Send to my e-mail your ZIP file and your project's github link
+- Send details or explanations about your project in a INSTRUCTIONS.md file that is inside the root directory of your project
 
 ## REST Services
 
