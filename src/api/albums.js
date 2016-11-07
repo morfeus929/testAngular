@@ -9,9 +9,7 @@ module.exports = function() {
 
 	router.use(bodyParser.json()); // for parsing application/json
 
-	// middleware that is specific to this router
 	router.use(function timeLog(req, res, next) {
-		console.log('Time: ', Date.now());
 		next();
 	});
 
@@ -25,26 +23,14 @@ module.exports = function() {
 			albums = JSON.parse(data.toString());
 			length = Object.keys(albums).length;
 
-			// define the home page route
 			router.get('/', function(req, res) {
 				res.send('Albums home page');
 			});
-			// define the data route
+
 			router.get('/all', function(req, res) {
 				res.send(albums);
 			});
 
-			// // define the data route
-			// router.get('/id', function(req, res) {
-			// 	var obj = {};
-			// 	var i = 0;
-			// 	for (var k in albums) {
-			// 		albums[k]['id'] = i;
-			// 		obj[i++] = albums[k];
-			// 	}
-			// 	res.send(obj);
-			// });
-			// define the data route
 			router.get('/get/:id', function(req, res) {
 				var id = req.params.id;
 

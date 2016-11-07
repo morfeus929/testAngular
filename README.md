@@ -35,6 +35,7 @@ There are a few services that you're supposed to use in order to create your app
 
 - Url: `/albums/add`
 - HTTP Method: `POST`
+- Request data type: `application/json`
 - Params: 
 ```json
 {
@@ -51,6 +52,7 @@ There are a few services that you're supposed to use in order to create your app
 
 - Url: `/albums/update/:id`
 - HTTP Method: `POST`
+- Request data type: `application/json`
 - Params: 
 ```json
 {
