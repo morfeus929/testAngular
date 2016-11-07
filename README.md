@@ -13,8 +13,13 @@ You are required to create a music library web application, which is a Single Pa
 
 Your task is creating a simple music library that create, retrieve, edit and delete music albums. There are some albums already registered in the database of your services. You are not required to make a fancy page but your music library project must be shown in a reasonable way in terms of User Experience.
 
+*How to start?*
+
+Fork the project [Angular JS Exam project](https://github.com/thiagoh/angular-js-exam-project). This project must be the basis of yours
+
 ## Requirements
 
+- Your project must be a for of [Angular JS Exam project](https://github.com/thiagoh/angular-js-exam-project)
 - The page must be responsive
 - You cannot create or edit the existing REST Services
 - You must create tests with Jasmine + Karma
