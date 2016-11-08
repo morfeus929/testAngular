@@ -5,9 +5,15 @@
         </div>
     </div>
 
+    <div class="row show-grid">
+        <div class="col-xs-12 text-right">
+            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success">Add</button>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover table-responsive" style="vertical-align: middle">
                 <thead>
                     <th ng-click="orderAlbums('artist')">Artist
                         <span ng-if="orderField == 'artist' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
@@ -31,10 +37,12 @@
                     <th ng-click="orderAlbums('year')">Year
                         <span ng-if="orderField == 'year' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         <span ng-if="orderField == 'year' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th></th>
+                    <th>Logo</th>
+                    <th>Update</th>
                     <th>Delete</th>
                 </thead>
                 <tbody>
-                    <tr ui-sref="album({id: album.id})" ng-repeat="album in albums | orderBy:orderField:reverse track by $index">
+                    <tr  ng-repeat="album in albums | orderBy:orderField:reverse track by $index">
                         <td>{{album.artist}}</td>
                         <td>{{album.company}}</td>
                         <td>{{album.country}}</td>
@@ -42,10 +50,103 @@
                         <td>{{album.title}}</td>
                         <td>{{album.year}}</td>
                         <td>
+                            <img class="table-image"  ng-src="{{ album.logoUrl || 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTU3E8TmEAHGl4BwuC-ZK3fXxPq2cFWublNpyzZgcok_40rwTB3FfdPYFU' }}"/>
+                        </td>
+                        <td>
+                            <span ui-sref="album({id: album.id})" class="glyphicon 	glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </td>
+                        <td>
                             <span ng-click="deleteAlbum(album.id,$index)" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="modal fade" my-modal id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add new album</h4>
+                </div>
+                <form class="form-horizontal" ng-submit="addNewAlbum()">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="logo" class="col-sm-2 control-label">Logo</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img class="update-img" ng-src="{{ new.logoUrl || 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTU3E8TmEAHGl4BwuC-ZK3fXxPq2cFWublNpyzZgcok_40rwTB3FfdPYFU' }}"   id="logo">
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input class="align-input" fileread="new.logoUrl " type="file">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title" class="col-sm-2 control-label">Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="new.title" id="title" placeholder="Title">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="artist" class="col-sm-2 control-label">Artist</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="new.artist" id="artist" placeholder="Artist">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country" class="col-sm-2 control-label">Country</label>
+                                        <div class="col-sm-10">
+                                            <select id="country" ng-model="new.country" class="form-control">
+                                                <option>EU</option>
+                                                <option>Norway</option>
+                                                <option>UK</option>
+                                                <option>USA</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="artist" class="col-sm-2 control-label">Company</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="new.company" id="company" placeholder="Company">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="col-sm-2 control-label">Price</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" step="0.1" class="form-control" ng-model="new.price" id="price" placeholder="Price">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="year" class="col-sm-2 control-label">Year</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group">
+                                                <input id="year" type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                                       ng-model="new.year" is-open="status.opened"
+                                                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"/>
+                                                <span class="input-group-addon" ng-click="open($event)">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

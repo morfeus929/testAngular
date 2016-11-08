@@ -26,34 +26,13 @@ module.exports = function (grunt) {
                     logLevel: 'ERROR',
                 },
             }
-        },
-        injector: {
-            options: {
-                bowerPrefix:'../..',
-                prefix:'../..',
-            },
-            local_dependencies: {
-                files: {
-                    'src/html/index.html': ['!node_modules/**/*.js','!node_modules/**/*.css','**/*.js', '**/*.css'],
-                }
-            },
-            bower_dependencies: {
-               
-                files: {
-                    'src/html/index.html': ['bower.json'],
-                },
-                your_target: {
-                    // Target-specific file lists and/or options go here.
-                },
-            },
-
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-injector');
+
 
     function start_server() {
 
@@ -75,9 +54,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('start_server', start_server);
     grunt.registerTask('test', ['karma']);
-    grunt.registerTask('inject', ['injector']);
-    grunt.registerTask('start', ['test', 'inject', 'start_server']);
+    grunt.registerTask('wiredep', ['wiredep']);
+    grunt.registerTask('start', ['test', 'start_server']);
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify', 'inject', 'start']);
+    grunt.registerTask('default', ['uglify','start']);
 };

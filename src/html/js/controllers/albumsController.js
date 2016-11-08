@@ -1,6 +1,6 @@
 angular.module('main').controller('albumsController', albumsController);
-albumsController.$inject = ['$scope','requestsService'];
-function albumsController($scope,requestsService) {
+albumsController.$inject = ['$scope','requestsService','$document','$uibModal'];
+function albumsController($scope,requestsService,$document,$uibModal) {
 
     $scope.$on('$viewContentLoaded',function () {
         $scope.albums = [];
@@ -46,4 +46,44 @@ function albumsController($scope,requestsService) {
             });
 
     };
+
+    $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 1,
+        minMode: 'year'
+    };
+
+    $scope.formats = ['yyyy'];
+
+    $scope.format = $scope.formats[0];
+
+    $scope.status = {
+        opened: false
+    };
+
+    $scope.open = function() {
+        $scope.status.opened = true;
+    };
+
+    $scope.addNewAlbum = function () {
+        var requestParam = {
+            title: $scope.new.title,
+            artist: $scope.new.artist,
+            logoUrl:$scope.new.logoUrl,
+            country: $scope.new.country,
+            company: $scope.new.company,
+            price: ""+$scope.new.price,
+            year: $scope.new.year.getFullYear()
+        };
+        requestsService.addNew(requestParam,
+        function () {
+            $scope.getAllAlbums();
+            $scope.new = {};
+            $scope.dismiss();
+        },
+        function (error) {
+            console.log(error);
+        });
+    };
+
 }
