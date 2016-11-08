@@ -1,59 +1,83 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-	// Project configuration.
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		uglify: {
-			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-			},
-			build: {
-				src: 'src/*.js',
-				dest: 'build/*.min.js'
-			}
-		},
-		karma: {
-			unit: {
-				options: {
-					files: [
-						'src/tests/*.js',
-					],
-					frameworks: ['jasmine'],
-					plugins: ['karma-jasmine', 'karma-phantomjs-launcher'],
-					browsers: ['PhantomJS'],
-					port: 9999,
-					singleRun: true,
-					logLevel: 'ERROR',
-				},
-			}
-		}
-	});
+    // Project configuration.
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            build: {
+                src: 'src/*.js',
+                dest: 'build/*.min.js'
+            }
+        },
+        karma: {
+            unit: {
+                options: {
+                    files: [
+                        'src/tests/*.js',
+                    ],
+                    frameworks: ['jasmine'],
+                    plugins: ['karma-jasmine', 'karma-phantomjs-launcher'],
+                    browsers: ['PhantomJS'],
+                    port: 9999,
+                    singleRun: true,
+                    logLevel: 'ERROR',
+                },
+            }
+        },
+        injector: {
+            options: {
+                bowerPrefix:'../..',
+                prefix:'../..',
+            },
+            local_dependencies: {
+                files: {
+                    'src/html/index.html': ['!node_modules/**/*.js','!node_modules/**/*.css','**/*.js', '**/*.css'],
+                }
+            },
+            bower_dependencies: {
+               
+                files: {
+                    'src/html/index.html': ['bower.json'],
+                },
+                your_target: {
+                    // Target-specific file lists and/or options go here.
+                },
+            },
 
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jasmine');
-	grunt.loadNpmTasks('grunt-karma');
+        }
+    });
 
-	function start_server() {
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-injector');
 
-		// Force task into async mode and grab a handle to the "done" function.
-		var done = this.async();
-		// Run some sync stuff.
-		grunt.log.writeln('Processing task...');
+    function start_server() {
 
-		try {
+        // Force task into async mode and grab a handle to the "done" function.
+        var done = this.async();
+        // Run some sync stuff.
+        grunt.log.writeln('Processing task...');
 
-			require('./src/server.js')();
+        try {
 
-		} catch (e) {
-			console.error(e);
-			done();
-		}
-	}
+            require('./src/server.js')();
 
-	grunt.registerTask('start_server', start_server);
-	grunt.registerTask('test', ['karma']);
-	grunt.registerTask('start', ['test', 'start_server']);
+        } catch (e) {
+            console.error(e);
+            done();
+        }
+    }
 
-	// Default task(s).
-	grunt.registerTask('default', ['uglify', 'start']);
+
+    grunt.registerTask('start_server', start_server);
+    grunt.registerTask('test', ['karma']);
+    grunt.registerTask('inject', ['injector']);
+    grunt.registerTask('start', ['test', 'inject', 'start_server']);
+
+    // Default task(s).
+    grunt.registerTask('default', ['uglify', 'inject', 'start']);
 };

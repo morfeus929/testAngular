@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+           <h1 class="text-center">Albums</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th ng-click="orderAlbums('artist')">Artist
+                        <span ng-if="orderField == 'artist' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'artist' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </th>
+                    <th ng-click="orderAlbums('company')">Company
+                        <span ng-if="orderField == 'company' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'company' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </th>
+                    <th ng-click="orderAlbums('country')">Country
+                        <span ng-if="orderField == 'country' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'country' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </th>
+                    <th ng-click="orderAlbums('price')">Price
+                        <span ng-if="orderField == 'price' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'price' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </th>
+                    <th ng-click="orderAlbums('title')">Title
+                        <span ng-if="orderField == 'title' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'title' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
+                    <th ng-click="orderAlbums('year')">Year
+                        <span ng-if="orderField == 'year' && reverse == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        <span ng-if="orderField == 'year' && reverse == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th></th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    <tr ui-sref="album({id: album.id})" ng-repeat="album in albums | orderBy:orderField:reverse track by $index">
+                        <td>{{album.artist}}</td>
+                        <td>{{album.company}}</td>
+                        <td>{{album.country}}</td>
+                        <td>{{album.price}}</td>
+                        <td>{{album.title}}</td>
+                        <td>{{album.year}}</td>
+                        <td>
+                            <span ng-click="deleteAlbum(album.id,$index)" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
